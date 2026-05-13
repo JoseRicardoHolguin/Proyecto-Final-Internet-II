@@ -1,0 +1,325 @@
+{
+  "info": {
+    "name": "Bitácora de Viajes API",
+    "description": "API para gestión de bitácora de viajes - pruebas con Postman",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8000",
+      "type": "string"
+    },
+    {
+      "key": "token",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{token}}"
+      }
+    ]
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "javascript",
+        "exec": [
+          "if (!pm.environment.get('token')) {",
+          "  pm.collectionVariables.set('token', '');",
+          "}"
+        ]
+      }
+    }
+  ],
+  "item": [
+    {
+      "name": "Autenticación",
+      "item": [
+        {
+          "name": "POST /api/login",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{base_url}}/api/login",
+              "host": ["{{base_url}}"],
+              "path": ["api", "login"]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"admin@example.com\",\n  \"password\": \"password\"\n}"
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Travels (Viajes)",
+      "item": [
+        {
+          "name": "GET /api/travels - Listar",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/travels",
+              "host": ["{{base_url}}"],
+              "path": ["api", "travels"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST /api/travels - Crear",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{base_url}}/api/travels",
+              "host": ["{{base_url}}"],
+              "path": ["api", "travels"]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Viaje de prueba\",\n  \"start_date\": \"2024-06-01\",\n  \"end_date\": \"2024-06-10\"\n}"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET /api/travels/{id} - Ver",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/travels/1",
+              "host": ["{{base_url}}"],
+              "path": ["api", "travels", "1"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "PUT /api/travels/{id} - Actualizar",
+          "request": {
+            "method": "PUT",
+            "url": {
+              "raw": "{{base_url}}/api/travels/1",
+              "host": ["{{base_url}}"],
+              "path": ["api", "travels", "1"]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Viaje actualizado\",\n  \"start_date\": \"2024-07-01\",\n  \"end_date\": \"2024-07-15\"\n}"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "DELETE /api/travels/{id} - Eliminar",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{base_url}}/api/travels/1",
+              "host": ["{{base_url}}"],
+              "path": ["api", "travels", "1"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Places (Lugares)",
+      "item": [
+        {
+          "name": "GET /api/places - Listar",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/places",
+              "host": ["{{base_url}}"],
+              "path": ["api", "places"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST /api/places - Crear",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{base_url}}/api/places",
+              "host": ["{{base_url}}"],
+              "path": ["api", "places"]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"travel_id\": 1,\n  \"name\": \"Torre Eiffel\",\n  \"description\": \"Monumento icónico de París\",\n  \"latitude\": 48.8584,\n  \"longitude\": 2.2945\n}"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET /api/places/{id} - Ver",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/places/1",
+              "host": ["{{base_url}}"],
+              "path": ["api", "places", "1"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "PUT /api/places/{id} - Actualizar",
+          "request": {
+            "method": "PUT",
+            "url": {
+              "raw": "{{base_url}}/api/places/1",
+              "host": ["{{base_url}}"],
+              "path": ["api", "places", "1"]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Louvre\",\n  \"description\": \"Museo del Louvre\",\n  \"latitude\": 48.8606,\n  \"longitude\": 2.3376\n}"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "DELETE /api/places/{id} - Eliminar",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{base_url}}/api/places/1",
+              "host": ["{{base_url}}"],
+              "path": ["api", "places", "1"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Documents (Documentación)",
+      "item": [
+        {
+          "name": "GET /api/documents - Listar",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/documents",
+              "host": ["{{base_url}}"],
+              "path": ["api", "documents"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST /api/documents - Crear",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{base_url}}/api/documents",
+              "host": ["{{base_url}}"],
+              "path": ["api", "documents"]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"travel_id\": 1,\n  \"name\": \"Pasaporte\",\n  \"file_path\": \"/documents/passport.pdf\",\n  \"required\": true\n}"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET /api/documents/{id} - Ver",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/documents/1",
+              "host": ["{{base_url}}"],
+              "path": ["api", "documents", "1"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "PUT /api/documents/{id} - Actualizar",
+          "request": {
+            "method": "PUT",
+            "url": {
+              "raw": "{{base_url}}/api/documents/1",
+              "host": ["{{base_url}}"],
+              "path": ["api", "documents", "1"]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Visa\",\n  \"required\": false\n}"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "DELETE /api/documents/{id} - Eliminar",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{base_url}}/api/documents/1",
+              "host": ["{{base_url}}"],
+              "path": ["api", "documents", "1"]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
